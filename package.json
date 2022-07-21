@@ -6,7 +6,8 @@
   "author": "Joao Pedro <jpprud.contato@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules src/server.ts"
+    "dev": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules src/server.ts",
+    "lint": "eslint . --ext .ts"
   },
   "devDependencies": {
     "@types/node": "^18.0.6",
