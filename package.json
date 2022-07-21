@@ -5,6 +5,9 @@
   "repository": "https://github.com/jp-prud/Task-Manager-API.git",
   "author": "Joao Pedro <jpprud.contato@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "dev": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules src/server.ts"
+  },
   "devDependencies": {
     "@types/node": "^18.0.6",
     "git-commit-msg-linter": "^4.1.3",
