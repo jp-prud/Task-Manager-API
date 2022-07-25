@@ -1,10 +1,10 @@
 class ErrorHandler {
-  public readonly message: string;
   public readonly statusCode: number;
+  public readonly message: string;
 
-  constructor(message: string, statusCode: number = 400) {
-    this.message = message;
+  constructor(statusCode: number = 400, message: string) {
     this.statusCode = statusCode;
+    this.message = message;
   }
 }
 
