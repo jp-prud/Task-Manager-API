@@ -14,7 +14,10 @@ class User {
   @Column()
   name: string;
 
-  @Column()
+  @Column({
+    unique: true,
+    nullable: false,
+  })
   email: string;
 
   @Column()
@@ -26,10 +29,14 @@ class User {
   @Column()
   organization: string;
 
-  @Column()
+  @Column({
+    nullable: true,
+  })
   role: string;
 
-  @Column()
+  @Column({
+    nullable: true,
+  })
   avatar: string;
 
   @CreateDateColumn()
