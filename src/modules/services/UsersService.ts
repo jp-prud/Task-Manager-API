@@ -21,6 +21,14 @@ class UsersService {
     return users;
   }
 
+  public async getUser(userId: string): Promise<User | undefined> {
+    const userRepository = getCustomRepository(UserRepository);
+
+    const user = await userRepository.findById(userId);
+
+    return user;
+  }
+
   public async createUser({
     name,
     email,

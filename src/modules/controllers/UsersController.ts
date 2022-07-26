@@ -1,4 +1,3 @@
-import ErrorHandler from '@shared/errors/errorHandler';
 import { Request, Response } from 'express';
 import UsersService from '../services/UsersService';
 
@@ -7,6 +6,18 @@ class UsersController {
     const users = await UsersService.listUsers();
 
     return response.status(200).json(users);
+  }
+
+  public async show(request: Request, response: Response): Promise<Response> {
+    const { id } = request.params;
+
+    const user = await UsersService.getUser(id);
+
+    if(!user) {
+      return response.status(404).json({ message: 'User not found' });
+    }
+
+    return response.status(200).json(user);
   }
 
   public async store(request: Request, response: Response): Promise<Response> {
