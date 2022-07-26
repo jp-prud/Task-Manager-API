@@ -20,5 +20,7 @@ router.post(
   // }),
   UsersController.store,
 );
+router.put('users/:id', UsersController.update);
+router.delete('users/:id', UsersController.delete);
 
 export default router;

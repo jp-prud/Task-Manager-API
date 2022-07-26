@@ -21,10 +21,14 @@ class UsersService {
     return users;
   }
 
-  public async getUser(userId: string): Promise<User | undefined> {
+  public async getUser(userId: string): Promise<User> {
     const userRepository = getCustomRepository(UserRepository);
 
     const user = await userRepository.findById(userId);
+
+    if (!user) {
+      throw new ErrorHandler(404, `User not found`);
+    }
 
     return user;
   }
@@ -54,6 +58,47 @@ class UsersService {
     userRepository.save(user);
 
     return user;
+  }
+
+  public async updateUser(
+    userId: string,
+    { name, email, phone, password, organization }: IRequest,
+  ): Promise<User> {
+    const userRepository = getCustomRepository(UserRepository);
+
+    const user = await userRepository.findById(userId);
+
+    if (!user) {
+      throw new ErrorHandler(404, 'User not found');
+    }
+
+    const emailAlreadyExists = await userRepository.findByEmail(email);
+
+    if (emailAlreadyExists) {
+      throw new ErrorHandler(404, 'Email already exists');
+    }
+
+    user.name = name;
+    user.email = email;
+    user.phone = phone;
+    user.password = password;
+    user.organization = organization;
+
+    userRepository.save(user);
+
+    return user;
+  }
+
+  public async deleteUser(userId: string): Promise<void> {
+    const userRepository = getCustomRepository(UserRepository);
+
+    const user = await userRepository.findById(userId);
+
+    if (!user) {
+      throw new ErrorHandler(404, 'User not found');
+    }
+
+    userRepository.remove(user);
   }
 }
 
