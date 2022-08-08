@@ -3,6 +3,7 @@ import UserRepository from '../repositories/User';
 import { getCustomRepository } from 'typeorm';
 
 import ErrorHandler from '@shared/errors/errorHandler';
+import { hash } from 'bcryptjs';
 
 interface IRequest {
   name: string;
@@ -47,11 +48,13 @@ class UsersService {
       throw new ErrorHandler(400, 'Email already exists');
     }
 
+    const hashedPassword = await hash(password, 8);
+
     const user = userRepository.create({
       name,
       email,
       phone,
-      password,
+      password: hashedPassword,
       organization,
     });
 
@@ -78,10 +81,12 @@ class UsersService {
       throw new ErrorHandler(404, 'Email already exists');
     }
 
+    const hashedPassword = await hash(password, 8);
+
     user.name = name;
     user.email = email;
     user.phone = phone;
-    user.password = password;
+    user.password = hashedPassword;
     user.organization = organization;
 
     userRepository.save(user);
